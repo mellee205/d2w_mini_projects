@@ -2,3 +2,6 @@
 **/__pycache__
 **/__target__
 **/.ipynb_checkpoints/*
+mp_calc/migrations/
+mp_calc/app.db
+mp_calc/pipfile.lock
