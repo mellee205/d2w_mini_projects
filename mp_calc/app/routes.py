@@ -39,6 +39,10 @@ def questions():
 		question = Question(expression=form.expression.data)
 		evalans = EvaluateExpression(form.expression.data)
 		question.answer = evalans.evaluate()
+		if question.answer=="0div":
+			return render_template('zero.html',title='Zero',user=current_user,prefix=prefix)
+		elif question.answer=="bad":
+			return render_template('bad_data.html',title='Zero',user=current_user,prefix=prefix)
 		question.author = current_user.id 
 		challenge = Challenge(question=question)
 		username_to = []

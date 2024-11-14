@@ -139,31 +139,36 @@ class EvaluateExpression:
     #print(tokens)
     operands="1234567890"
 
-    for ch in tokens:
-      #print(ch)
-      #print("operand",operand_stack._Stack__items)
-      #print("operator",operator_stack._Stack__items)
-      if ch in operands:
-        operand_stack.push(ch)
-      elif ch=="+" or ch=="-":
-        while operator_stack.size!=0 and operator_stack.peek()!="(" and operator_stack.peek()!=")":
-          self.process_operator(operand_stack,operator_stack)
-        operator_stack.push(ch)
-      elif ch=="*" or ch=="/":
-        while operator_stack.size!=0 and (operator_stack.peek()=="*" or operator_stack.peek()=="/"):
-          self.process_operator(operand_stack,operator_stack)
-        operator_stack.push(ch)
-      elif ch=="(":
-        operator_stack.push(ch)
-      elif ch==")":
-        while operator_stack!=0 and operator_stack.peek()!="(":
-          self.process_operator(operand_stack,operator_stack)
-        if operator_stack.peek()=="(":
-          operator_stack.pop()
-    while operator_stack.size!=0:
-      self.process_operator(operand_stack,operator_stack)
-    
-    return operand_stack.pop()
+    try:
+      for ch in tokens:
+        #print(ch)
+        #print("operand",operand_stack._Stack__items)
+        #print("operator",operator_stack._Stack__items)
+        if ch in operands:
+          operand_stack.push(ch)
+        elif ch=="+" or ch=="-":
+          while operator_stack.size!=0 and operator_stack.peek()!="(" and operator_stack.peek()!=")":
+            self.process_operator(operand_stack,operator_stack)
+          operator_stack.push(ch)
+        elif ch=="*" or ch=="/":
+          while operator_stack.size!=0 and (operator_stack.peek()=="*" or operator_stack.peek()=="/"):
+            self.process_operator(operand_stack,operator_stack)
+          operator_stack.push(ch)
+        elif ch=="(":
+          operator_stack.push(ch)
+        elif ch==")":
+          while operator_stack!=0 and operator_stack.peek()!="(":
+            self.process_operator(operand_stack,operator_stack)
+          if operator_stack.peek()=="(":
+            operator_stack.pop()
+      while operator_stack.size!=0:
+        self.process_operator(operand_stack,operator_stack)
+      
+      return operand_stack.pop()
+    except ZeroDivisionError:
+      return "0div"
+    except:
+      return "bad"
 
 
 def get_smallest_three(challenge):
